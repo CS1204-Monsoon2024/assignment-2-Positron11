@@ -81,7 +81,7 @@ class HashTable {
 				}
 			}
 			
-			printf("Max probing limit reached!\n");
+			// printf("Max probing limit reached!\n");
 			return -1;
 		}
 
@@ -91,6 +91,8 @@ class HashTable {
 				if (table[i].has_value()) printf("%d ", table[i]);
 				else printf("- ");
 			}
+
+			printf("\n");
 		}
 
 		// destructor
