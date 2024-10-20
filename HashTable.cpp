@@ -27,75 +27,22 @@ class HashTable {
 
 		// insert
 		void insert(KEY_T key) {
-			size_t index = hash(key);
-
-			// quadratic probing
-			for (size_t i = 0; i < size; i++) {
-				size_t new_index = (index + i * i) % size;
-
-				// duplicate keys
-				if (table[new_index] == key) {
-					printf("Duplicate key insertion is not allowed\n"); 
-					return;
-				}
-
-				// empty slot
-				if (table[new_index] == EMPTY) {
-					table[new_index] = key;
-					load += (float) 1 / size;
-					return;
-				}
-			}
-
-			// printf("Max probing limit reached!\n");
+			printf("Insert: (%lld\n)", key);
 		}
 
 		// delete
 		void remove(KEY_T key) {
-			size_t index = hash(key);
-
-			// quadratic probing
-			for (size_t i = 0; i < size; i++)	{
-				size_t new_index = (index + i * i) % size;
-
-				// key found
-				if (table[new_index] == key) {
-					table[new_index] = EMPTY;  // mark slot as empty
-					load -= 1.0 / size;
-					return;
-				}
-			}
-
-			// printf("Max probing limit reached!\n");
-			printf("Element not found\n");
+			printf("Remove: (%lld\n)", key);
 		}
 
 		// search
 		size_t search(KEY_T key) {
-			size_t index = hash(key);
-
-			// quadratic probing
-			for (size_t i = 0; i < size; i++)	{
-				size_t new_index = (index + i * i) % size;
-
-				// key found
-				if (table[new_index] == key) {
-					return new_index;
-				}
-			}
-			
-			// printf("Max probing limit reached!\n");
-			return -1;
+			printf("Search: (%lld\n)", key);
 		}
 
 		// print table
 		void printTable() {
-			for (size_t i = 0; i < size; i++) {
-				if (table[i] != EMPTY) printf("%lld ", table[i]);
-				else printf("- ");
-			}
-
-			printf("\n");
+			printf("Print table");
 		}
 
 		// destructor
