@@ -23,7 +23,7 @@ class HashTable {
 		}
 
 		// insert
-		void insert(unsigned long key) {
+		void insert(long long key) {
 			size_t index = hash(key);
 
 			// quadratic probing
