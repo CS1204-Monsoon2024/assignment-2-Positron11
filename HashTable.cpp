@@ -8,23 +8,23 @@ class HashTable {
 		float load = 0.0;
 		float alpha = 0.8;
 
-		std::optional<int>* table;
+		std::optional<unsigned long>* table;
 
 		// hash function
-		int hash(int key) {
+		size_t hash(unsigned long key) {
 			return key % size;
 		}
 		
 	public:
 		// constructor
 		HashTable(int size) : size(size) {
-			table = new std::optional<int>[size]; // allocate memory for the table
+			table = new std::optional<unsigned long>[size]; // allocate memory for the table
 			for (int i = 0; i < size; ++i) table[i] = std::nullopt; // mark all slots as empty
 		}
 
 		// insert
-		void insert(int key) {
-			int index = hash(key);
+		void insert(unsigned long key) {
+			size_t index = hash(key);
 
 			// quadratic probing
 			for (size_t i = 0; i < (size + 1) / 2; i++) {
@@ -44,12 +44,12 @@ class HashTable {
 				}
 			}
 
-			printf("Max probing limit reached!");
+			// printf("Max probing limit reached!\n");
 		}
 
 		// delete
-		void remove(int key) {
-			int index = hash(key);
+		void remove(unsigned long key) {
+			size_t index = hash(key);
 
 			// quadratic probing
 			for (size_t i = 0; i < (size + 1) / 2; i++)	{
@@ -63,13 +63,13 @@ class HashTable {
 				}
 			}
 
-			printf("Max probing limit reached!\n");
+			// printf("Max probing limit reached!\n");
 			printf("Element not found\n");
 		}
 
 		// search
-		int search(int key) {
-			int index = hash(key);
+		int search(unsigned long key) {
+			size_t index = hash(key);
 
 			// quadratic probing
 			for (size_t i = 0; i < (size + 1) / 2; i++)	{
