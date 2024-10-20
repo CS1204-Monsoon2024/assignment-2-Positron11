@@ -91,8 +91,11 @@ class HashTable {
 					return;
 				}
 
-				if (load > alpha) resize();
-				new_index = (index + i * i) % size;
+				if (load > alpha) {
+					resize();
+					insert(key);
+					return;
+				}
 
 				// empty slot
 				if (!table[new_index].has_value()) {
