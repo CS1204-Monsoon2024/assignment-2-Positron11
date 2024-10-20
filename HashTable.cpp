@@ -2,7 +2,6 @@
 #include <optional>
 
 #define EMPTY -1
-#define DELETED -2
 
 // hashtable class
 class HashTable {
