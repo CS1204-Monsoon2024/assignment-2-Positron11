@@ -49,14 +49,14 @@ class HashTable {
 
 		// delete
 		void remove(KEY_T key) {
-			printf("Insert -> %lld:", key);
+			printf("Remove -> %lld:", key);
 			cout << GET_TYPE_NAME(key) << endl;
 		}
 
 		// search
 		size_t search(KEY_T key) {
-			printf("Insert -> %lld:", key);
-			cout << GET_TYPE_NAME(key) << endl;
+			printf("Search -> %lld:", key);
+			cout << GET_TYPE_NAME(key) << " | ";
 			return 0;
 		}
 
