@@ -38,6 +38,7 @@ class HashTable {
 			for (size_t i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
 
 			printf("Initialize -> size=%zu\n", size);
+			printTable();
 		}
 
 		// insert
@@ -110,7 +111,7 @@ class HashTable {
 			printf("Print -> ");
 			
 			for (size_t i = 0; i < size; i++) {
-				if (table[i] != EMPTY) printf("%lld ", table[i]);
+				if (table[i] != EMPTY) printf("%d ", table[i]);
 				else printf("- ");
 			}
 
