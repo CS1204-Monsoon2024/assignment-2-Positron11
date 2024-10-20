@@ -45,7 +45,7 @@ class HashTable {
 		void insert(KEY_T key) {
 			size_t index = hash(key);
 
-			printf("Insert -> key=%zu:%s\n", key, GET_TYPE_NAME(key));
+			printf("Insert -> key=%d:%s\n", key, GET_TYPE_NAME(key));
 
 			// quadratic probing
 			for (size_t i = 0; i < size; i++) {
@@ -71,7 +71,7 @@ class HashTable {
 		void remove(KEY_T key) {
 			size_t index = hash(key);
 
-			printf("Remove -> key=%zu:%s\n", key, GET_TYPE_NAME(key));
+			printf("Remove -> key=%d:%s\n", key, GET_TYPE_NAME(key));
 
 			// quadratic probing
 			for (size_t i = 0; i < size; i++)	{
