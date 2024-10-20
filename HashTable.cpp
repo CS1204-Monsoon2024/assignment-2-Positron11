@@ -1,7 +1,7 @@
 #include <iostream>
 #include <optional>
 
-#define KEY_T int
+#define KEY_T long long
 #define EMPTY -1
 
 // hashtable class
