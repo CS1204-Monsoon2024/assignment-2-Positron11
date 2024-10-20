@@ -37,7 +37,7 @@ class HashTable {
 			table = new KEY_T[size]; // allocate memory for the table
 			for (int i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
 
-			printf("Initialize -> size=%zu\n", size);
+			printf("Initialize -> size=%d\n", size);
 			printTable();
 		}
 
