@@ -2,6 +2,9 @@
 #include <optional>
 #include <math.h>
 
+#define EMPTY -1
+#define DELETED -2
+
 typedef int key_t;
 
 // prime checker helper function
@@ -81,6 +84,8 @@ class HashTable {
 		void insert(key_t key) {
 			size_t index = hash(key);
 
+			if (load > alpha) resize();
+
 			// quadratic probing
 			for (size_t i = 0; i < size; i++) {
 				int new_index = (index + i * i) % size;
@@ -91,18 +96,10 @@ class HashTable {
 					return;
 				}
 
-				if (load > alpha) {
-					resize();
-					insert(key);
-					return;
-				}
-
 				// empty slot
 				if (!table[new_index].has_value()) {
 					table[new_index] = key;
-					
 					load += (float) 1 / size;
-
 					return;
 				}
 			}
