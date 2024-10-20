@@ -8,17 +8,17 @@ class HashTable {
 		float load = 0.0;
 		float alpha = 0.8;
 
-		std::optional<unsigned long long>* table;
+		std::optional<long long>* table;
 
 		// hash function
-		size_t hash(unsigned long long key) {
+		size_t hash(long long key) {
 			return key % size;
 		}
 		
 	public:
 		// constructor
 		HashTable(size_t size) : size(size) {
-			table = new std::optional<unsigned long long>[size]; // allocate memory for the table
+			table = new std::optional<long long>[size]; // allocate memory for the table
 			for (int i = 0; i < size; ++i) table[i] = std::nullopt; // mark all slots as empty
 		}
 
@@ -48,7 +48,7 @@ class HashTable {
 		}
 
 		// delete
-		void remove(unsigned long long key) {
+		void remove(long long key) {
 			size_t index = hash(key);
 
 			// quadratic probing
@@ -68,7 +68,7 @@ class HashTable {
 		}
 
 		// search
-		int search(unsigned long long key) {
+		int search(long long key) {
 			size_t index = hash(key);
 
 			// quadratic probing
