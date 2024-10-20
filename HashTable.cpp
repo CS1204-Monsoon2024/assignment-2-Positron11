@@ -1,6 +1,9 @@
 #include <iostream>
 #include <optional>
 
+#define EMPTY -1
+#define DELETED -2
+
 // hashtable class
 class HashTable {
 	private:
@@ -8,7 +11,7 @@ class HashTable {
 		float load = 0.0;
 		float alpha = 0.8;
 
-		std::optional<int>* table;
+		int* table;
 
 		// hash function
 		size_t hash(int key) {
@@ -18,8 +21,8 @@ class HashTable {
 	public:
 		// constructor
 		HashTable(size_t size) : size(size) {
-			table = new std::optional<int>[size]; // allocate memory for the table
-			for (int i = 0; i < size; ++i) table[i] = std::nullopt; // mark all slots as empty
+			table = new int[size]; // allocate memory for the table
+			for (int i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
 		}
 
 		// insert
@@ -37,7 +40,7 @@ class HashTable {
 				}
 
 				// empty slot
-				if (!table[new_index].has_value()) {
+				if (table[new_index] == EMPTY) {
 					table[new_index] = key;
 					load += (float) 1 / size;
 					return;
@@ -57,7 +60,7 @@ class HashTable {
 
 				// key found
 				if (table[new_index] == key) {
-					table[new_index] = std::nullopt;  // mark slot as empty
+					table[new_index] = EMPTY;  // mark slot as empty
 					load -= 1.0 / size;
 					return;
 				}
@@ -88,7 +91,7 @@ class HashTable {
 		// print table
 		void printTable() {
 			for (size_t i = 0; i < size; i++) {
-				if (table[i].has_value()) printf("%d ", table[i]);
+				if (table[i] != EMPTY) printf("%d ", table[i]);
 				else printf("- ");
 			}
 
