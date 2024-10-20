@@ -30,7 +30,7 @@ class HashTable {
 			size_t index = hash(key);
 
 			// quadratic probing
-			for (size_t i = 0; i < (size + 1) / 2; i++) {
+			for (size_t i = 0; i < size; i++) {
 				size_t new_index = (index + i * i) % size;
 
 				// duplicate keys
@@ -91,7 +91,7 @@ class HashTable {
 		// print table
 		void printTable() {
 			for (size_t i = 0; i < size; i++) {
-				if (table[i] != EMPTY) printf("%d ", table[i]);
+				if (table[i] != EMPTY) printf("%lld ", table[i]);
 				else printf("- ");
 			}
 
