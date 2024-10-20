@@ -142,7 +142,7 @@ class HashTable {
 		// print table
 		void printTable() {			
 			for (size_t i = 0; i < size; i++) {
-				if (table[i].has_value()) printf("%d ", table[i]);
+				if (table[i].has_value()) printf("%d ", table[i].value());
 				else printf("- ");
 			}
 
