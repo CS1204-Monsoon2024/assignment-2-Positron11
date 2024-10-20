@@ -1,6 +1,5 @@
 #include <iostream>
 #include <optional>
-using namespace std;
 
 #define KEY_T int
 #define EMPTY -1
@@ -19,12 +18,11 @@ DECLARE_TYPE_NAME(size_t);
 DECLARE_TYPE_NAME(long long);
 DECLARE_TYPE_NAME(unsigned int);
 
+
 // hashtable class
 class HashTable {
 	private:
 		size_t size;
-		float load = 0.0;
-		float alpha = 0.8;
 
 		KEY_T* table;
 
@@ -38,38 +36,85 @@ class HashTable {
 		HashTable(size_t size) : size(size) {
 			table = new KEY_T[size]; // allocate memory for the table
 			for (size_t i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
-			printf("Initialize with size %zu ( ", size);
 
+			printf("Initialize -> size=%zu\n", size);
+		}
+
+		// insert
+		void insert(KEY_T key) {
+			size_t index = hash(key);
+
+			printf("Insert -> key=%zu:%s\n", key, GET_TYPE_NAME(key));
+
+			// quadratic probing
+			for (size_t i = 0; i < size; i++) {
+				size_t new_index = (index + i * i) % size;
+
+				// duplicate keys
+				if (table[new_index] == key) {
+					printf("Duplicate key insertion is not allowed\n"); 
+					return;
+				}
+
+				// empty slot
+				if (table[new_index] == EMPTY) {
+					table[new_index] = key;
+					return;
+				}
+			}
+
+			// printf("Max probing limit reached!\n");
+		}
+
+		// delete
+		void remove(KEY_T key) {
+			size_t index = hash(key);
+
+			printf("Remove -> key=%zu:%s\n", key, GET_TYPE_NAME(key));
+
+			// quadratic probing
+			for (size_t i = 0; i < size; i++)	{
+				size_t new_index = (index + i * i) % size;
+
+				// key found
+				if (table[new_index] == key) {
+					table[new_index] = EMPTY;  // mark slot as empty
+					return;
+				}
+			}
+
+			// printf("Max probing limit reached!\n");
+			printf("Element not found\n");
+		}
+
+		// search
+		size_t search(KEY_T key) {
+			size_t index = hash(key);
+
+			// quadratic probing
+			for (size_t i = 0; i < size; i++)	{
+				size_t new_index = (index + i * i) % size;
+
+				// key found
+				if (table[new_index] == key) {
+					return new_index;
+				}
+			}
+			
+			// printf("Max probing limit reached!\n");
+			return -1;
+		}
+
+		// print table
+		void printTable() {
+			printf("Print -> ");
+			
 			for (size_t i = 0; i < size; i++) {
 				if (table[i] != EMPTY) printf("%lld ", table[i]);
 				else printf("- ");
 			}
 
-			printf(")\n");
-		}
-
-		// insert
-		void insert(KEY_T key) {
-			printf("Insert -> %lld:", key);
-			cout << GET_TYPE_NAME(key) << endl;
-		}
-
-		// delete
-		void remove(KEY_T key) {
-			printf("Remove -> %lld:", key);
-			cout << GET_TYPE_NAME(key) << endl;
-		}
-
-		// search
-		size_t search(KEY_T key) {
-			printf("Search -> %lld:", key);
-			cout << GET_TYPE_NAME(key) << " | ";
-			return 0;
-		}
-
-		// print table
-		void printTable() {
-			printf("Print table\n");
+			printf("\n");
 		}
 
 		// destructor
