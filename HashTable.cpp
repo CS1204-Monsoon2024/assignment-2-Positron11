@@ -1,51 +1,48 @@
 #include <iostream>
 #include <optional>
 
-#define KEY_T int
-#define EMPTY -1
-
-template <typename T> class type_name {
-public:
-    static const char *name;
-};
-
-#define DECLARE_TYPE_NAME(x) template<> const char *type_name<x>::name = #x;
-#define GET_TYPE_NAME(x) (type_name<typeof(x)>::name)
-
-DECLARE_TYPE_NAME(int);
-DECLARE_TYPE_NAME(long);
-DECLARE_TYPE_NAME(size_t);
-DECLARE_TYPE_NAME(long long);
-DECLARE_TYPE_NAME(unsigned int);
-
+typedef int key_t;
 
 // hashtable class
 class HashTable {
 	private:
 		int size;
 
-		KEY_T* table;
+		std::optional<key_t>* table;
 
 		// hash function
-		int hash(KEY_T key) {
+		int hash(key_t key) {
 			return key % size;
 		}
 		
 	public:
 		// constructor
 		HashTable(int size) : size(size) {
-			table = new KEY_T[size]; // allocate memory for the table
-			for (int i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
+			table = new std::optional<key_t>[size]; // allocate memory for the table
+			for (int i = 0; i < size; ++i) table[i] = std::nullopt; // mark all slots as empty
+		}
 
-			printf("Initialize -> size=%d\n", size);
-			printTable();
+		// copy constructor
+		HashTable(const HashTable& other) : size(other.size) {
+			table = new std::optional<key_t>[size];
+			for (int i = 0; i < size; ++i) table[i] = other.table[i];
+		}
+
+		// copy assignment operator
+		HashTable& operator=(const HashTable& other) {
+			if (this != &other) {
+				delete[] table;
+				size = other.size;
+				table = new std::optional<key_t>[size];
+				for (int i = 0; i < size; ++i) table[i] = other.table[i];
+			}
+
+			return *this;
 		}
 
 		// insert
-		void insert(KEY_T key) {
+		void insert(key_t key) {
 			int index = hash(key);
-
-			printf("Insert -> key=%d:%s\n", key, GET_TYPE_NAME(key));
 
 			// quadratic probing
 			for (int i = 0; i < size; i++) {
@@ -58,7 +55,7 @@ class HashTable {
 				}
 
 				// empty slot
-				if (table[new_index] == EMPTY) {
+				if (!table[new_index].has_value()) {
 					table[new_index] = key;
 					return;
 				}
@@ -68,10 +65,8 @@ class HashTable {
 		}
 
 		// delete
-		void remove(KEY_T key) {
+		void remove(key_t key) {
 			int index = hash(key);
-
-			printf("Remove -> key=%d:%s\n", key, GET_TYPE_NAME(key));
 
 			// quadratic probing
 			for (int i = 0; i < size; i++)	{
@@ -79,7 +74,7 @@ class HashTable {
 
 				// key found
 				if (table[new_index] == key) {
-					table[new_index] = EMPTY;  // mark slot as empty
+					table[new_index] = std::nullopt;  // mark slot as empty
 					return;
 				}
 			}
@@ -89,7 +84,7 @@ class HashTable {
 		}
 
 		// search
-		int search(KEY_T key) {
+		int search(key_t key) {
 			int index = hash(key);
 
 			// quadratic probing
@@ -107,11 +102,9 @@ class HashTable {
 		}
 
 		// print table
-		void printTable() {
-			printf("Print -> ");
-			
+		void printTable() {			
 			for (int i = 0; i < size; i++) {
-				if (table[i] != EMPTY) printf("%d ", table[i]);
+				if (table[i].has_value()) printf("%d ", table[i]);
 				else printf("- ");
 			}
 
