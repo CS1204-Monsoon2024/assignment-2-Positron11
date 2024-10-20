@@ -14,7 +14,7 @@ public:
 
 DECLARE_TYPE_NAME(int);
 DECLARE_TYPE_NAME(long);
-DECLARE_TYPE_NAME(size_t);
+DECLARE_TYPE_NAME(int);
 DECLARE_TYPE_NAME(long long);
 DECLARE_TYPE_NAME(unsigned int);
 
@@ -22,20 +22,20 @@ DECLARE_TYPE_NAME(unsigned int);
 // hashtable class
 class HashTable {
 	private:
-		size_t size;
+		int size;
 
 		KEY_T* table;
 
 		// hash function
-		size_t hash(KEY_T key) {
+		int hash(KEY_T key) {
 			return key % size;
 		}
 		
 	public:
 		// constructor
-		HashTable(size_t size) : size(size) {
+		HashTable(int size) : size(size) {
 			table = new KEY_T[size]; // allocate memory for the table
-			for (size_t i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
+			for (int i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
 
 			printf("Initialize -> size=%zu\n", size);
 			printTable();
@@ -43,13 +43,13 @@ class HashTable {
 
 		// insert
 		void insert(KEY_T key) {
-			size_t index = hash(key);
+			int index = hash(key);
 
 			printf("Insert -> key=%d:%s\n", key, GET_TYPE_NAME(key));
 
 			// quadratic probing
-			for (size_t i = 0; i < size; i++) {
-				size_t new_index = (index + i * i) % size;
+			for (int i = 0; i < size; i++) {
+				int new_index = (index + i * i) % size;
 
 				// duplicate keys
 				if (table[new_index] == key) {
@@ -69,13 +69,13 @@ class HashTable {
 
 		// delete
 		void remove(KEY_T key) {
-			size_t index = hash(key);
+			int index = hash(key);
 
 			printf("Remove -> key=%d:%s\n", key, GET_TYPE_NAME(key));
 
 			// quadratic probing
-			for (size_t i = 0; i < size; i++)	{
-				size_t new_index = (index + i * i) % size;
+			for (int i = 0; i < size; i++)	{
+				int new_index = (index + i * i) % size;
 
 				// key found
 				if (table[new_index] == key) {
@@ -89,12 +89,12 @@ class HashTable {
 		}
 
 		// search
-		size_t search(KEY_T key) {
-			size_t index = hash(key);
+		int search(KEY_T key) {
+			int index = hash(key);
 
 			// quadratic probing
-			for (size_t i = 0; i < size; i++)	{
-				size_t new_index = (index + i * i) % size;
+			for (int i = 0; i < size; i++)	{
+				int new_index = (index + i * i) % size;
 
 				// key found
 				if (table[new_index] == key) {
@@ -110,7 +110,7 @@ class HashTable {
 		void printTable() {
 			printf("Print -> ");
 			
-			for (size_t i = 0; i < size; i++) {
+			for (int i = 0; i < size; i++) {
 				if (table[i] != EMPTY) printf("%d ", table[i]);
 				else printf("- ");
 			}
