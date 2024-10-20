@@ -14,7 +14,7 @@ public:
 
 DECLARE_TYPE_NAME(int);
 DECLARE_TYPE_NAME(long);
-DECLARE_TYPE_NAME(int);
+DECLARE_TYPE_NAME(size_t);
 DECLARE_TYPE_NAME(long long);
 DECLARE_TYPE_NAME(unsigned int);
 
