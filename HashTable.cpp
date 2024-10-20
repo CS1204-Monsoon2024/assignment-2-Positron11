@@ -55,7 +55,7 @@ class HashTable {
 			size_t index = hash(key);
 
 			// quadratic probing
-			for (size_t i = 0; i < (size + 1) / 2; i++)	{
+			for (size_t i = 0; i < size; i++)	{
 				size_t new_index = (index + i * i) % size;
 
 				// key found
@@ -75,7 +75,7 @@ class HashTable {
 			size_t index = hash(key);
 
 			// quadratic probing
-			for (size_t i = 0; i < (size + 1) / 2; i++)	{
+			for (size_t i = 0; i < size; i++)	{
 				size_t new_index = (index + i * i) % size;
 
 				// key found
