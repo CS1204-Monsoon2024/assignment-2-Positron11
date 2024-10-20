@@ -27,22 +27,23 @@ class HashTable {
 
 		// insert
 		void insert(KEY_T key) {
-			printf("Insert: (%lld\n)", key);
+			printf("Insert: (%lld)\n", key);
 		}
 
 		// delete
 		void remove(KEY_T key) {
-			printf("Remove: (%lld\n)", key);
+			printf("Remove: (%lld)\n", key);
 		}
 
 		// search
 		size_t search(KEY_T key) {
-			printf("Search: (%lld\n)", key);
+			printf("Search: (%lld) | ", key);
+			return 0;
 		}
 
 		// print table
 		void printTable() {
-			printf("Print table");
+			printf("Print table\n");
 		}
 
 		// destructor
