@@ -1,6 +1,7 @@
 #include <iostream>
 #include <optional>
 
+#define KEY_T int
 #define EMPTY -1
 
 // hashtable class
@@ -10,22 +11,22 @@ class HashTable {
 		float load = 0.0;
 		float alpha = 0.8;
 
-		int* table;
+		KEY_T* table;
 
 		// hash function
-		size_t hash(int key) {
+		size_t hash(KEY_T key) {
 			return key % size;
 		}
 		
 	public:
 		// constructor
 		HashTable(size_t size) : size(size) {
-			table = new int[size]; // allocate memory for the table
-			for (int i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
+			table = new KEY_T[size]; // allocate memory for the table
+			for (size_t i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
 		}
 
 		// insert
-		void insert(int key) {
+		void insert(KEY_T key) {
 			size_t index = hash(key);
 
 			// quadratic probing
@@ -50,7 +51,7 @@ class HashTable {
 		}
 
 		// delete
-		void remove(int key) {
+		void remove(KEY_T key) {
 			size_t index = hash(key);
 
 			// quadratic probing
@@ -70,7 +71,7 @@ class HashTable {
 		}
 
 		// search
-		int search(int key) {
+		size_t search(KEY_T key) {
 			size_t index = hash(key);
 
 			// quadratic probing
