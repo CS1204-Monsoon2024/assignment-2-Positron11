@@ -4,21 +4,21 @@
 // hashtable class
 class HashTable {
 	private:
-		int size;
+		size_t size;
 		float load = 0.0;
 		float alpha = 0.8;
 
-		std::optional<unsigned long>* table;
+		std::optional<unsigned long long>* table;
 
 		// hash function
-		size_t hash(unsigned long key) {
+		size_t hash(unsigned long long key) {
 			return key % size;
 		}
 		
 	public:
 		// constructor
-		HashTable(int size) : size(size) {
-			table = new std::optional<unsigned long>[size]; // allocate memory for the table
+		HashTable(size_t size) : size(size) {
+			table = new std::optional<unsigned long long>[size]; // allocate memory for the table
 			for (int i = 0; i < size; ++i) table[i] = std::nullopt; // mark all slots as empty
 		}
 
@@ -28,7 +28,7 @@ class HashTable {
 
 			// quadratic probing
 			for (size_t i = 0; i < (size + 1) / 2; i++) {
-				int new_index = (index + i * i) % size;
+				size_t new_index = (index + i * i) % size;
 
 				// duplicate keys
 				if (table[new_index] == key) {
@@ -48,12 +48,12 @@ class HashTable {
 		}
 
 		// delete
-		void remove(unsigned long key) {
+		void remove(unsigned long long key) {
 			size_t index = hash(key);
 
 			// quadratic probing
 			for (size_t i = 0; i < (size + 1) / 2; i++)	{
-				int new_index = (index + i * i) % size;
+				size_t new_index = (index + i * i) % size;
 
 				// key found
 				if (table[new_index] == key) {
@@ -68,12 +68,12 @@ class HashTable {
 		}
 
 		// search
-		int search(unsigned long key) {
+		int search(unsigned long long key) {
 			size_t index = hash(key);
 
 			// quadratic probing
 			for (size_t i = 0; i < (size + 1) / 2; i++)	{
-				int new_index = (index + i * i) % size;
+				size_t new_index = (index + i * i) % size;
 
 				// key found
 				if (table[new_index] == key) {
