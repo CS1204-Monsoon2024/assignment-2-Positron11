@@ -1,8 +1,23 @@
 #include <iostream>
 #include <optional>
+using namespace std;
 
-#define KEY_T long long
+#define KEY_T int
 #define EMPTY -1
+
+template <typename T> class type_name {
+public:
+    static const char *name;
+};
+
+#define DECLARE_TYPE_NAME(x) template<> const char *type_name<x>::name = #x;
+#define GET_TYPE_NAME(x) (type_name<typeof(x)>::name)
+
+DECLARE_TYPE_NAME(int);
+DECLARE_TYPE_NAME(long);
+DECLARE_TYPE_NAME(size_t);
+DECLARE_TYPE_NAME(long long);
+DECLARE_TYPE_NAME(unsigned int);
 
 // hashtable class
 class HashTable {
@@ -23,21 +38,25 @@ class HashTable {
 		HashTable(size_t size) : size(size) {
 			table = new KEY_T[size]; // allocate memory for the table
 			for (size_t i = 0; i < size; ++i) table[i] = EMPTY; // mark all slots as empty
+			printf("Initialize with size %zu\n", size);
 		}
 
 		// insert
 		void insert(KEY_T key) {
-			printf("Insert: (%lld)\n", key);
+			printf("Insert -> %lld:", key);
+			cout << GET_TYPE_NAME(key) << endl;
 		}
 
 		// delete
 		void remove(KEY_T key) {
-			printf("Remove: (%lld)\n", key);
+			printf("Insert -> %lld:", key);
+			cout << GET_TYPE_NAME(key) << endl;
 		}
 
 		// search
 		size_t search(KEY_T key) {
-			printf("Search: (%lld) | ", key);
+			printf("Insert -> %lld:", key);
+			cout << GET_TYPE_NAME(key) << endl;
 			return 0;
 		}
 
